@@ -45,8 +45,9 @@ export default function Navbar({ activeSection, onNav }) {
       <div className="nav-container">
         {/* Brand */}
         <button className="nav-brand" onClick={() => handleNav('home')} aria-label="Go to home">
-          <span className="brand-dot" />
-          <span className="brand-name">Sandeep<span className="brand-accent"> Muhal</span></span>
+          <span className="brand-name-serif">SANDEEP MUHAL</span>
+          <span className="brand-pipe">|</span>
+          <span className="brand-subtitle">AI ENGINEER</span>
         </button>
 
         {/* Desktop links */}
@@ -74,9 +75,28 @@ export default function Navbar({ activeSection, onNav }) {
             id="theme-toggle-btn"
           >
             {theme === 'dark'
-              ? <Sun size={17} className="theme-icon theme-icon--sun" />
-              : <Moon size={17} className="theme-icon theme-icon--moon" />
+              ? <Sun size={16} className="theme-icon theme-icon--sun" />
+              : <Moon size={16} className="theme-icon theme-icon--moon" />
             }
+          </button>
+
+          {/* Action pill buttons matching reference */}
+          <a
+            href={personalInfo.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-action-btn nav-action-btn--outline"
+            id="nav-resume-btn"
+          >
+            View Resume
+          </a>
+
+          <button
+            onClick={() => handleNav('contact')}
+            className="nav-action-btn nav-action-btn--primary"
+            id="nav-hire-btn"
+          >
+            Hire Me
           </button>
 
           {/* Mobile toggle */}

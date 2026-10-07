@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, createContext, useContext } from 'react'
 import Navbar from './components/portfolio/Navbar.jsx'
 import Hero from './components/portfolio/Hero.jsx'
+import BentoGrid from './components/portfolio/BentoGrid.jsx'
 import About from './components/portfolio/About.jsx'
 import Skills from './components/portfolio/Skills.jsx'
 import Projects from './components/portfolio/Projects.jsx'
@@ -60,7 +61,7 @@ function LoadingScreen() {
 export default function App() {
   const [activeSection, setActiveSection] = useState('home')
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('portfolio-theme') || 'dark'
+    return localStorage.getItem('portfolio-theme') || 'light'
   })
   const [loaded, setLoaded] = useState(false)
 
@@ -113,6 +114,7 @@ export default function App() {
         <Navbar activeSection={activeSection} onNav={scrollTo} />
         <main>
           <Hero onNav={scrollTo} />
+          <BentoGrid />
           <About />
           <Skills />
           <Projects />
