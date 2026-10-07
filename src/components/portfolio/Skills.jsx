@@ -1,17 +1,39 @@
 import React, { useState, useRef } from 'react'
 import { skillCategories } from '../../data/resumeData'
-import { Cpu } from 'lucide-react'
+import {
+  Code,
+  Brain,
+  Cpu,
+  Sparkles,
+  Layers,
+  Server,
+  Smartphone,
+  BarChart3,
+  Terminal,
+  Boxes
+} from 'lucide-react'
 import { useScrollReveal } from '../../hooks/useAnimations.js'
 
+const CATEGORY_ICONS = {
+  'Programming':            <Code size={22} />,
+  'Machine Learning':       <Brain size={22} />,
+  'Deep Learning':          <Cpu size={22} />,
+  'LLMs & NLP':             <Sparkles size={22} />,
+  'Frameworks & Libraries': <Layers size={22} />,
+  'Backend & Deployment':   <Server size={22} />,
+  'Mobile Development':     <Smartphone size={22} />,
+  'Tools & Visualization':  <BarChart3 size={22} />,
+}
+
 const PROFICIENCY = {
-  'Programming':             92,
-  'Machine Learning':        88,
-  'Deep Learning':           85,
-  'LLMs & NLP':              82,
-  'Frameworks & Libraries':  87,
-  'Backend & Deployment':    80,
-  'Mobile Development':      72,
-  'Tools & Visualization':   83,
+  'Programming':            94,
+  'Machine Learning':       90,
+  'Deep Learning':          88,
+  'LLMs & NLP':             86,
+  'Frameworks & Libraries': 92,
+  'Backend & Deployment':   84,
+  'Mobile Development':     78,
+  'Tools & Visualization':  88,
 }
 
 const TECH_LOGOS = [
@@ -19,39 +41,31 @@ const TECH_LOGOS = [
   { name: 'PyTorch',      url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg' },
   { name: 'TensorFlow',   url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
   { name: 'Docker',       url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-  { name: 'Git',          url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-  { name: 'GitHub',       url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
-  { name: 'JavaScript',   url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+  { name: 'FastAPI',      url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
   { name: 'Flutter',      url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg' },
-  { name: 'Dart',         url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg' },
+  { name: 'Git',          url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
   { name: 'C++',          url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
-  { name: 'C',            url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
   { name: 'Jupyter',      url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg' },
   { name: 'VS Code',      url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
   { name: 'NumPy',        url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg' },
   { name: 'Pandas',       url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
-  { name: 'Scikit-learn', url: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg' },
   { name: 'OpenCV',       url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg' },
   { name: 'SQLite',       url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg' },
-  { name: 'FastAPI',      url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
-  { name: 'Streamlit',    url: 'https://streamlit.io/images/brand/streamlit-mark-color.svg' },
-  { name: 'Keras',        url: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg' },
   { name: 'Linux',        url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
-  { name: 'Matplotlib',   url: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg' },
-  { name: 'HuggingFace',  url: 'https://huggingface.co/front/assets/huggingface_logo-noborder.svg' },
 ]
 
 function SkillCard({ cat, index, visible }) {
   const cardRef = useRef(null)
-  const pct = PROFICIENCY[cat.category] || 75
+  const pct = PROFICIENCY[cat.category] || 82
+  const icon = CATEGORY_ICONS[cat.category] || <Boxes size={22} />
 
   const handleMouseMove = (e) => {
     const card = cardRef.current
     if (!card) return
     const rect = card.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20
-    const y = -((e.clientY - rect.top) / rect.height - 0.5) * 20
-    card.style.transform = `perspective(700px) rotateX(${y}deg) rotateY(${x}deg) translateY(-8px) scale(1.02)`
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 16
+    const y = -((e.clientY - rect.top) / rect.height - 0.5) * 16
+    card.style.transform = `perspective(800px) rotateX(${y}deg) rotateY(${x}deg) translateY(-6px)`
   }
 
   const handleMouseLeave = () => {
@@ -62,25 +76,23 @@ function SkillCard({ cat, index, visible }) {
     <div
       ref={cardRef}
       className={`skill-card-3d ${visible ? 'reveal' : ''}`}
-      style={{
-        '--pct': `${pct}%`,
-        animationDelay: `${index * 0.07}s`,
-        transition: 'transform 0.15s ease, box-shadow 0.15s ease, border-color 0.2s, opacity 0.6s ease',
-      }}
+      style={{ animationDelay: `${index * 0.08}s` }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <div className="skill-card-top">
-        <span className="skill-icon-3d">{cat.icon}</span>
-        <div>
+        <div className="skill-icon-badge">
+          {icon}
+        </div>
+        <div className="skill-cat-info">
           <h3 className="skill-cat-name">{cat.category}</h3>
-          <p className="skill-cat-count">{cat.skills.length} technologies</p>
+          <p className="skill-cat-count">{cat.skills.length} Core Competencies</p>
         </div>
         <div className="skill-pct-label">{pct}%</div>
       </div>
 
       <div className="skill-progress-track">
-        <div className="skill-progress-fill" style={{ '--pct': `${pct}%` }} />
+        <div className="skill-progress-fill" style={{ width: `${pct}%` }} />
       </div>
 
       <div className="skill-tags-3d">
@@ -98,18 +110,20 @@ export default function Skills() {
   const [gridRef, gridVis] = useScrollReveal()
 
   return (
-    <section id="skills" className="section ds-section ds-section--dark">
-      <div className="ds-grid-overlay" aria-hidden="true" />
+    <section id="skills" className="section ds-section">
       <div className="section-container">
+        {/* Section Header */}
         <div ref={headRef} className={`section-header ${headVis ? 'reveal' : ''}`}>
-          <span className="ds-label"><Cpu size={12} /> Tech Stack</span>
-          <h2 className="ds-title">Technical Arsenal</h2>
-          <p className="section-subtitle">Full spectrum of ML / AI / backend skills</p>
+          <span className="ds-label"><Terminal size={13} /> TECHNICAL ARSENAL</span>
+          <h2 className="ds-title">Core Technical Areas &amp; Tools</h2>
+          <p className="section-subtitle">
+            Enterprise-grade proficiency across Data Science, Machine Learning, LLMs, and MLOps.
+          </p>
         </div>
 
-        {/* Real Tech Logos — all grayscale */}
+        {/* Tech Logos Row */}
         <div ref={logosRef} className={`skill-logos-section ${logosVis ? 'reveal' : ''}`}>
-          <div className="skill-logos-title">Core Technologies</div>
+          <div className="skill-logos-title">PRIMARY TECHNOLOGIES &amp; FRAMEWORKS</div>
           <div className="skill-logos-grid">
             {TECH_LOGOS.map((tech, i) => (
               <div
@@ -118,19 +132,23 @@ export default function Skills() {
                 style={{ animationDelay: `${i * 0.04}s` }}
                 title={tech.name}
               >
-                <img
-                  src={tech.url}
-                  alt={tech.name}
-                  loading="lazy"
-                  onError={e => { e.target.style.display = 'none' }}
-                />
+                <div className="logo-img-wrap">
+                  <img
+                    src={tech.url}
+                    alt={tech.name}
+                    loading="lazy"
+                    onError={e => {
+                      e.target.style.display = 'none'
+                    }}
+                  />
+                </div>
                 <span className="skill-logo-name">{tech.name}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* 3D Skill Cards */}
+        {/* 3D Category Skill Cards */}
         <div ref={gridRef} className="skills-grid-3d">
           {skillCategories.map((cat, i) => (
             <SkillCard key={cat.category} cat={cat} index={i} visible={gridVis} />
