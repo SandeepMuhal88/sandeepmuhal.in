@@ -138,15 +138,15 @@ function TerminalCard() {
 
 /* ── Tech Stack Radar ── */
 const TECH_ICONS = [
-  { name: 'Python',    url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',       glow: '#3b82f6' },
-  { name: 'PyTorch',   url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg',     glow: '#f97316' },
-  { name: 'TensorFlow',url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',glow: '#fbbf24' },
-  { name: 'Docker',    url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',       glow: '#06b6d4' },
-  { name: 'FastAPI',   url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',     glow: '#34d399' },
-  { name: 'Flutter',   url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg',     glow: '#06b6d4' },
-  { name: 'React',     url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',         glow: '#38bdf8' },
-  { name: 'Git',       url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',             glow: '#f97316' },
-  { name: 'Linux',     url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg',         glow: '#fbbf24' },
+  { name: 'Python',    url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg',       glow: '#3b82f6' },
+  { name: 'PyTorch',   url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg',     glow: '#f97316' },
+  { name: 'TensorFlow',url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg',glow: '#fbbf24' },
+  { name: 'Docker',    url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg',       glow: '#06b6d4' },
+  { name: 'FastAPI',   url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg',     glow: '#34d399' },
+  { name: 'Flutter',   url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg',     glow: '#06b6d4' },
+  { name: 'React',     url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',         glow: '#38bdf8' },
+  { name: 'Git',       url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg',             glow: '#f97316' },
+  { name: 'Linux',     url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg',         glow: '#fbbf24' },
 ]
 
 function RadarCard() {

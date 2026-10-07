@@ -1,17 +1,27 @@
 import React, { useState, useEffect, useCallback, createContext, useContext } from 'react'
-import Navbar from './components/portfolio/Navbar.jsx'
-import Hero from './components/portfolio/Hero.jsx'
-import BentoGrid from './components/portfolio/BentoGrid.jsx'
-import About from './components/portfolio/About.jsx'
-import Skills from './components/portfolio/Skills.jsx'
-import Projects from './components/portfolio/Projects.jsx'
-import Experience from './components/portfolio/Experience.jsx'
-import Education from './components/portfolio/Education.jsx'
-import Achievements from './components/portfolio/Achievements.jsx'
-import Contact from './components/portfolio/Contact.jsx'
-import Footer from './components/portfolio/Footer.jsx'
-import './portfolio.css'
-import { Analytics } from "@vercel/analytics/react"
+
+// Layout
+import { Navbar, Footer } from './components/layout'
+
+// Sections
+import {
+  Hero,
+  BentoGrid,
+  About,
+  Skills,
+  Projects,
+  Experience,
+  Education,
+  Achievements,
+  Contact,
+} from './components/sections'
+
+// Styles
+import './styles/portfolio.css'
+
+// Analytics
+import { Analytics } from '@vercel/analytics/react'
+
 
 export const ThemeContext = createContext({ theme: 'dark', toggleTheme: () => { } })
 

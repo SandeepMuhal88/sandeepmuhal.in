@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { personalInfo } from '../../data/resumeData'
-import NeuralBackground from './NeuralBackground.jsx'
+import NeuralBackground from '../ui/NeuralBackground.jsx'
 import { Github, Linkedin, Mail, Phone, Download, ChevronDown, Sparkles, Code, CheckCircle2, ArrowRight } from 'lucide-react'
+import profileImg from '../../assets/sandeep.jpg'
 
 const ROLES = [
   'Data Scientist & AI Architect',
@@ -76,6 +77,12 @@ export default function Hero({ onNav }) {
           {/* LEFT COLUMN: Editorial Headline & Value Proposition */}
           <div className="hero-left-col">
             
+            {/* Profile Avatar */}
+            <div className="hero-avatar-wrapper">
+              <img src={profileImg} alt="Sandeep Muhal" className="hero-avatar" />
+              <div className="hero-avatar-ring"></div>
+            </div>
+
             {/* Status Pill Badge */}
             <div className="hero-status-pill">
               <span className="status-pill-dot" />
@@ -184,7 +191,7 @@ export default function Hero({ onNav }) {
               {/* Tile 1: Python / PyTorch */}
               <div className="floating-tech-tile tile-python">
                 <img
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
                   alt="Python"
                   className="tile-img"
                 />
@@ -194,7 +201,7 @@ export default function Hero({ onNav }) {
               {/* Tile 2: PyTorch / Deep Learning */}
               <div className="floating-tech-tile tile-pytorch">
                 <img
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
                   alt="PyTorch"
                   className="tile-img"
                 />
@@ -204,7 +211,7 @@ export default function Hero({ onNav }) {
               {/* Tile 3: Docker / MLOps */}
               <div className="floating-tech-tile tile-docker">
                 <img
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
                   alt="Docker"
                   className="tile-img"
                 />
