@@ -1,6 +1,4 @@
-// ============================================================
-//  Sandeep Muhal – Portfolio Data  (sourced from resume)
-// ============================================================
+
 
 export const personalInfo = {
     name: "Sandeep Muhal",
@@ -280,7 +278,6 @@ export const experience = [
         duration: "June 2026 – Present",
         location: "Remote",
         website: "https://www.cypherxelites.me/",
-        logo: "/images/cypherx-elites-logo.png",
         current: true,
         highlights: [
             "Designing and deploying end-to-end machine learning pipelines for real-world business use cases.",

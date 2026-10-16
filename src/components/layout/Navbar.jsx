@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { personalInfo } from '../../data/resumeData'
 import { Menu, X, Sun, Moon } from 'lucide-react'
-import { useTheme } from '../../App.jsx'
-
-const NAV_LINKS = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'education', label: 'Education' },
-  { id: 'achievements', label: 'Milestones' },
-  { id: 'contact', label: 'Contact' },
-]
+import { useTheme } from '../../context/useTheme.js'
+import { NAV_LINKS } from '../../constants/navigation.js'
 
 export default function Navbar({ activeSection, onNav }) {
   const [scrolled, setScrolled] = useState(false)
@@ -27,8 +17,11 @@ export default function Navbar({ activeSection, onNav }) {
 
   // Lock body scroll when mobile drawer is open
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (!open) return undefined
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = previousOverflow }
   }, [open])
 
   const handleNav = (id) => {
@@ -44,7 +37,7 @@ export default function Navbar({ activeSection, onNav }) {
     >
       <div className="nav-container">
         {/* Brand */}
-        <button className="nav-brand" onClick={() => handleNav('home')} aria-label="Go to home">
+        <button type="button" className="nav-brand" onClick={() => handleNav('home')} aria-label="Go to home">
           <span className="brand-name-serif">SANDEEP MUHAL</span>
           <span className="brand-pipe">|</span>
           <span className="brand-subtitle">AI ENGINEER</span>
@@ -68,6 +61,7 @@ export default function Navbar({ activeSection, onNav }) {
         <div className="nav-right">
           {/* Theme toggle */}
           <button
+            type="button"
             className="theme-toggle"
             onClick={toggleTheme}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -92,6 +86,7 @@ export default function Navbar({ activeSection, onNav }) {
           </a>
 
           <button
+            type="button"
             onClick={() => handleNav('contact')}
             className="nav-action-btn nav-action-btn--primary"
             id="nav-hire-btn"
@@ -101,10 +96,12 @@ export default function Navbar({ activeSection, onNav }) {
 
           {/* Mobile toggle */}
           <button
+            type="button"
             className="nav-toggle"
             onClick={() => setOpen(!open)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
+            aria-controls="mobile-navigation"
           >
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -113,7 +110,7 @@ export default function Navbar({ activeSection, onNav }) {
 
       {/* Mobile full-overlay drawer */}
       {open && (
-        <div className="nav-drawer" role="dialog" aria-modal="true">
+        <div id="mobile-navigation" className="nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
           {NAV_LINKS.map((link, i) => (
             <button
               key={link.id}

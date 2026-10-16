@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Terminal, Zap, Code2, BarChart3, ExternalLink, Github } from 'lucide-react'
-import { projects, personalInfo } from '../../data/resumeData'
+import { projects } from '../../data/resumeData'
 
 /* ── Interactive Terminal Card ── */
 const TERMINAL_COMMANDS = {

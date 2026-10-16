@@ -1,8 +1,7 @@
 import React from 'react'
 import { personalInfo } from '../../data/resumeData'
 import { Github, Linkedin, Mail, Heart, Youtube, Twitter, Instagram } from 'lucide-react'
-
-const NAV_SECTIONS = ['home', 'about', 'skills', 'projects', 'education', 'achievements', 'contact']
+import { NAV_LINKS } from '../../constants/navigation.js'
 
 export default function Footer({ onNav }) {
   const year = new Date().getFullYear()
@@ -49,9 +48,9 @@ export default function Footer({ onNav }) {
               textTransform: 'uppercase', color: 'var(--text-dim)', marginBottom: '14px'
             }}>Navigation</div>
             <div className="footer-links">
-              {NAV_SECTIONS.map(s => (
-                <button key={s} className="footer-link" onClick={() => onNav(s)}>
-                  {s.charAt(0).toUpperCase() + s.slice(1)}
+              {NAV_LINKS.map(({ id, label }) => (
+                <button key={id} className="footer-link" onClick={() => onNav(id)}>
+                  {label}
                 </button>
               ))}
             </div>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
+const PROGRAMMING_CHARS = ['0', '1', '{', '}', '<', '>', '/', '\\', '(', ')', '[', ']', ';', ':', '=', '+', '-', '*', '%', '&', '|', '^', '~', '!', '?', '#', '$', '@']
+const TECH_ICONS = ['⚡', '🚀', '💻', '🔧', '⚙️', '🔬', '📊', '🎯', '💡', '🔥', '⭐', '🌟', '💎', '🎨', '🔮']
+
 const AnimatedBackground = () => {
   const [codeChars, setCodeChars] = useState([])
   const [floatingIcons, setFloatingIcons] = useState([])
-
-  const programmingChars = ['0', '1', '{', '}', '<', '>', '/', '\\', '(', ')', '[', ']', ';', ':', '=', '+', '-', '*', '%', '&', '|', '^', '~', '!', '?', '#', '$', '@']
-  const techIcons = ['⚡', '🚀', '💻', '🔧', '⚙️', '🔬', '📊', '🎯', '💡', '🔥', '⭐', '🌟', '💎', '🎨', '🔮']
 
   useEffect(() => {
     // Generate code rain characters
@@ -14,7 +14,7 @@ const AnimatedBackground = () => {
       for (let i = 0; i < 50; i++) {
         chars.push({
           id: i,
-          char: programmingChars[Math.floor(Math.random() * programmingChars.length)],
+          char: PROGRAMMING_CHARS[Math.floor(Math.random() * PROGRAMMING_CHARS.length)],
           left: Math.random() * 100,
           animationDuration: 3 + Math.random() * 4,
           animationDelay: Math.random() * 5
@@ -29,7 +29,7 @@ const AnimatedBackground = () => {
       for (let i = 0; i < 15; i++) {
         icons.push({
           id: i,
-          icon: techIcons[Math.floor(Math.random() * techIcons.length)],
+          icon: TECH_ICONS[Math.floor(Math.random() * TECH_ICONS.length)],
           left: Math.random() * 100,
           animationDuration: 10 + Math.random() * 10,
           animationDelay: Math.random() * 8
@@ -96,4 +96,3 @@ const AnimatedBackground = () => {
 }
 
 export default AnimatedBackground
-

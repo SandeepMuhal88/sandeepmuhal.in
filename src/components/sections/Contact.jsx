@@ -2,21 +2,37 @@ import React, { useState } from 'react'
 import { personalInfo } from '../../data/resumeData'
 import { Mail, Phone, MapPin, Github, Linkedin, Send, Youtube, Twitter, Instagram, FileText, MessageSquare } from 'lucide-react'
 import { useScrollReveal } from '../../hooks/useAnimations.js'
+import { ProfileAvatar } from '../ui'
+import { createContactMailtoUrl, validateContactForm } from '../../services/contact.js'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
-  const [status, setStatus] = useState(null)
+  const [status, setStatus] = useState({ type: null, message: '' })
   const [headRef, headVis] = useScrollReveal()
   const [bodyRef, bodyVis] = useScrollReveal()
 
-  const onChange = e => setForm({ ...form, [e.target.name]: e.target.value })
+  const onChange = e => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+    if (status.type) {
+      setStatus({ type: null, message: '' })
+    }
+  }
 
   const onSubmit = e => {
     e.preventDefault()
-    setStatus('sending')
-    const body = encodeURIComponent(`Name: ${form.name}\n\n${form.message}`)
-    window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(form.subject)}&body=${body}`
-    setTimeout(() => setStatus('sent'), 800)
+    const { values, error } = validateContactForm(form)
+    if (error) {
+      setStatus({ type: 'error', message: error })
+      return
+    }
+
+    try {
+      window.location.href = createContactMailtoUrl(personalInfo.email, values)
+      setStatus({ type: 'success', message: 'Your email draft is ready. Please send it from your mail app.' })
+    } catch (submitError) {
+      console.error('Unable to open the contact email draft.', submitError)
+      setStatus({ type: 'error', message: 'Unable to open your email app. Please contact me using the email link.' })
+    }
   }
 
   const SOCIALS = [
@@ -43,13 +59,7 @@ export default function Contact() {
           <div className="contact-info-3d">
             <div className="contact-info-card">
               {/* Avatar header */}
-              <div className="contact-avatar">
-                <img
-                  src="images/profile_pna.jpg"
-                  alt="Sandeep Muhal"
-                  onError={e => { e.target.style.display = 'none'; e.target.parentElement.style.background = 'linear-gradient(135deg, var(--electric), var(--violet-b))'; e.target.parentElement.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:Space Grotesk,sans-serif;font-size:1.8rem;font-weight:900;color:#020617">SM</span>' }}
-                />
-              </div>
+              <ProfileAvatar className="contact-avatar" name={personalInfo.name} />
               <div className="contact-avatar-name">{personalInfo.name}</div>
               <div className="contact-avatar-title">{personalInfo.title}</div>
 
@@ -131,16 +141,21 @@ export default function Contact() {
               <button
                 type="submit"
                 className="ds-submit-btn"
-                disabled={status === 'sending'}
                 id="contact-submit-btn"
               >
-                {status === 'sent'
-                  ? '✓ Ready to send!'
-                  : status === 'sending'
-                    ? 'Opening…'
-                    : <><Send size={15} /> Send Message</>
+                {status.type === 'success'
+                  ? '✓ Draft Ready'
+                  : <><Send size={15} /> Send Message</>
                 }
               </button>
+              {status.message && (
+                <div
+                  className={`form-status ${status.type === 'error' ? 'form-status--error' : 'form-status--success'}`}
+                  aria-live="polite"
+                >
+                  {status.message}
+                </div>
+              )}
             </form>
           </div>
         </div>

@@ -4,87 +4,70 @@ A world-class, ultra-premium personal portfolio website built with **React 19**,
 
 ---
 
-## 📂 Project Folder Structure
+## Project structure
 
 ```text
 sandeep-portfolio-website/
-├── public/                               # Static assets served directly
-│   ├── .nojekyll                         # Bypasses Jekyll on GitHub Pages
-│   ├── favicon.png                       # Site browser favicon
-│   ├── assets/                           # Static public media
-│   └── images/                           # Static project & company logos
-│
-├── src/                                  # Source code
-│   ├── assets/                           # Local media assets
-│   │   └── sandeep.jpg                   # Profile portrait
-│   │
-│   ├── components/                       # UI Components
-│   │   ├── AnimatedBackground.jsx        # Ambient particle background
-│   │   └── portfolio/                    # Core portfolio sections
-│   │       ├── Navbar.jsx                # Floating luxury pill navbar with theme toggle
-│   │       ├── Hero.jsx                  # 3D Hero with macOS code studio & floating tech tiles
-│   │       ├── BentoGrid.jsx             # 3D Bento dashboard (Terminal, radar, metrics, showcase)
-│   │       ├── About.jsx                 # Professional narrative & 3D circular progress stats
-│   │       ├── Skills.jsx                # Technical arsenal & primary framework logo chips
-│   │       ├── Projects.jsx              # Filterable 3D project cards with live demo & code links
-│   │       ├── Experience.jsx            # Career timeline with glowing milestone nodes
-│   │       ├── Education.jsx             # Academic history & B.Tech CSE coursework
-│   │       ├── Achievements.jsx          # Milestones, competitions & open-source achievements
-│   │       ├── Contact.jsx               # Interactive contact form & connection cards
-│   │       ├── Footer.jsx                # Clean luxury footer with back-to-top cue
-│   │       └── NeuralBackground.jsx      # Interactive canvas particle network
-│   │
-│   ├── data/                             # Centralized data sources
-│   │   └── resumeData.js                 # Complete resume info, projects, skills, and experience
-│   │
-│   ├── hooks/                            # Custom React hooks
-│   │   └── useAnimations.js              # Scroll reveal, animated counter, and intersection hooks
-│   │
-│   ├── App.jsx                           # Root component, theme state & active section tracking
-│   ├── App.css                           # App level utility rules
-│   ├── main.jsx                          # React application entry point
-│   └── portfolio.css                     # Master Luxury Design System (Parchment & Obsidian)
-│
-├── .gitignore                            # Git ignore configuration
-├── eslint.config.js                      # ESLint rules and configuration
-├── index.html                            # HTML entry document & metadata
-├── jsconfig.json                         # JavaScript path aliases & config
-├── package.json                          # Project scripts, dependencies & manifest
-├── package-lock.json                     # Locked dependency tree
-├── vercel.json                           # Vercel deployment & SPA routing configuration
-├── vite.config.js                        # Vite bundler configuration & React plugins
-└── Readme.md                             # Comprehensive project documentation
+├── public/                         # Static files copied as-is by Vite
+├── src/
+│   ├── assets/                     # Imported and fingerprinted media
+│   ├── components/
+│   │   ├── layout/                 # Navigation and footer
+│   │   ├── sections/               # Portfolio page sections
+│   │   └── ui/                     # Reusable visual primitives
+│   ├── constants/                  # Shared, stable application constants
+│   ├── context/                    # App-wide state providers
+│   ├── data/                       # Portfolio content
+│   ├── hooks/                      # Reusable React hooks
+│   ├── services/                   # UI-independent business operations
+│   ├── styles/                     # Global design tokens and component styles
+│   ├── App.jsx                     # Page composition and scroll state
+│   └── main.jsx                    # React entry point and error boundary
+├── index.html
+├── package.json
+└── vite.config.js
 ```
 
+Keep section-specific markup in `components/sections`, reusable presentation in
+`components/ui`, and non-visual work in `services`. Shared navigation data belongs
+in `constants`; resume and portfolio content belongs in `data`.
+
+## Design system
+
+The design tokens live at the top of `src/styles/portfolio.css`. Light and dark
+themes share component styles and override the same CSS variables through
+`data-theme`; avoid adding page-specific color literals when a token exists.
+
+## State, errors, and API boundaries
+
+- Theme preference is app-wide state owned by `ThemeProvider`. It persists under
+  `portfolio-theme`; unavailable browser storage is logged and does not stop rendering.
+- Contact form validation and `mailto:` URL creation are in `src/services/contact.js`,
+  separate from the form component.
+- A root error boundary logs unexpected rendering errors and offers a reload action.
+- This portfolio currently has no backend API. When one is added, keep shared HTTP
+  transport and response/error handling under `src/api/client.js`, with feature
+  endpoint modules (for example `src/api/projects.js`) calling that client. Keep
+  API base URLs in Vite `VITE_` environment variables; never put secrets in client
+  environment variables. Do not call `fetch` directly from UI components.
+- Keep dependencies focused: prefer the existing React, Vite, and Lucide packages
+  over adding another state or styling framework for isolated features.
+
 ---
 
-## 🎨 Master Design System
-
-- **Light Mode (Default)**:
-  - **Canvas Background:** `#F6F2EB` (Warm Silk Linen Sand) with subtle radial geometric matrix.
-  - **Cards & Surfaces:** `#FDFAF5` (Crisp Alabaster) with fine dimensional shadows.
-  - **Luxury Accents:** `#9E6E3E` (Caramel Bronze), `#B5824C` (Champagne Bronze), `#1B4D4F` (Deep Spruce Teal).
-  - **Typography:** `Outfit` (Headlines) & `Plus Jakarta Sans` (Body).
-- **Dark Mode (Toggleable)**:
-  - **Canvas Background:** `#090A0F` (Deep Space Caviar Obsidian).
-  - **Cards & Surfaces:** `#141724` (Translucent Obsidian Glass).
-  - **Luxury Accents:** `#D4A359` (Champagne Gold) & `#E8B86D` (Caramel Gold).
-
----
-
-## 🛠️ Tech Stack & Dependencies
+## Tech stack
 
 - **Framework:** React 19 (`react`, `react-dom`)
 - **Build Tool:** Vite 6 (`vite`, `@vitejs/plugin-react`)
 - **Icons:** Lucide React (`lucide-react`)
-- **Animations:** Custom 3D perspective parallax & Framer Motion (`framer-motion`)
+- **Animations:** Custom CSS, browser APIs, and Framer Motion (`framer-motion`)
 - **Analytics:** `@vercel/analytics`
 - **Routing:** React Router DOM (`react-router-dom`)
 - **Styling:** Custom Luxury CSS Design System (`portfolio.css`)
 
 ---
 
-## 🚀 Getting Started
+## Getting started
 
 ### 1. Prerequisites
 Ensure you have Node.js (v18+) installed on your machine.

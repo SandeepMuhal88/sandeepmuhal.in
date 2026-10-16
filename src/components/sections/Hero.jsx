@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { personalInfo } from '../../data/resumeData'
 import NeuralBackground from '../ui/NeuralBackground.jsx'
-import { Github, Linkedin, Mail, Phone, Download, ChevronDown, Sparkles, Code, CheckCircle2, ArrowRight } from 'lucide-react'
-import profileImg from '../../assets/sandeep.jpg'
+import { Github, Linkedin, Mail, Phone, Download, Code, ChevronDown } from 'lucide-react'
+import { ProfileAvatar } from '../ui'
 
 const ROLES = [
   'Data Scientist & AI Architect',
@@ -79,7 +79,7 @@ export default function Hero({ onNav }) {
             
             {/* Profile Avatar */}
             <div className="hero-avatar-wrapper">
-              <img src={profileImg} alt="Sandeep Muhal" className="hero-avatar" />
+              <ProfileAvatar className="hero-avatar" name={personalInfo.name} />
               <div className="hero-avatar-ring"></div>
             </div>
 

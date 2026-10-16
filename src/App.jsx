@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, createContext, useContext } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 // Layout
 import { Navbar, Footer } from './components/layout'
@@ -21,15 +21,8 @@ import './styles/portfolio.css'
 
 // Analytics
 import { Analytics } from '@vercel/analytics/react'
-
-
-export const ThemeContext = createContext({ theme: 'dark', toggleTheme: () => { } })
-
-export function useTheme() {
-  return useContext(ThemeContext)
-}
-
-const SECTIONS = ['home', 'about', 'skills', 'projects', 'experience', 'education', 'achievements', 'contact']
+import { ThemeProvider } from './context/ThemeProvider.jsx'
+import { SECTION_IDS } from './constants/navigation.js'
 
 function ScrollProgressBar() {
   const [progress, setProgress] = useState(0)
@@ -70,16 +63,7 @@ function LoadingScreen() {
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home')
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('portfolio-theme') || 'light'
-  })
   const [loaded, setLoaded] = useState(false)
-
-  // Apply theme to document root
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('portfolio-theme', theme)
-  }, [theme])
 
   // Hide loading screen after 2s
   useEffect(() => {
@@ -87,15 +71,11 @@ export default function App() {
     return () => clearTimeout(t)
   }, [])
 
-  const toggleTheme = useCallback(() => {
-    setTheme(t => t === 'dark' ? 'light' : 'dark')
-  }, [])
-
   // Track active section on scroll
   useEffect(() => {
     const onScroll = () => {
       const scrollY = window.scrollY + 100
-      for (const id of SECTIONS) {
+      for (const id of SECTION_IDS) {
         const el = document.getElementById(id)
         if (el) {
           const { offsetTop, offsetHeight } = el
@@ -117,12 +97,13 @@ export default function App() {
   }, [])
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className="portfolio-root" data-theme={theme}>
+    <ThemeProvider>
+      <div className="portfolio-root">
+        <a href="#main-content" className="skip-link">Skip to content</a>
         {!loaded && <LoadingScreen />}
         <ScrollProgressBar />
         <Navbar activeSection={activeSection} onNav={scrollTo} />
-        <main>
+        <main id="main-content">
           <Hero onNav={scrollTo} />
           <BentoGrid />
           <About />
@@ -136,6 +117,6 @@ export default function App() {
         </main>
         <Footer onNav={scrollTo} />
       </div>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   )
 }

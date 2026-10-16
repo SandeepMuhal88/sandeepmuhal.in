@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
   <meta charset="UTF-8" />
@@ -19,8 +19,14 @@
   <script>
     // Apply saved theme before React mounts to avoid flash
     (function () {
-      const saved = localStorage.getItem('portfolio-theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', saved);
+      try {
+        const saved = localStorage.getItem('portfolio-theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (error) {
+        console.error('Unable to read the saved theme preference.', error);
+      }
     })();
   </script>
 </head>

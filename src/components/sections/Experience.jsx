@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { experience } from '../../data/resumeData'
 import { Briefcase, Calendar, MapPin, ExternalLink, CheckCircle2 } from 'lucide-react'
 import { useScrollReveal } from '../../hooks/useAnimations.js'
+
+function ExperienceLogo({ company, src }) {
+  const [imageFailed, setImageFailed] = useState(!src)
+
+  const handleImageError = error => {
+    console.error(`Unable to load the ${company} logo.`, error)
+    setImageFailed(true)
+  }
+
+  return imageFailed
+    ? <span className="exp-logo-fallback" role="img" aria-label={`${company} logo`}>{company.slice(0, 2).toUpperCase()}</span>
+    : <img src={src} alt={`${company} logo`} className="exp-logo" onError={handleImageError} />
+}
 
 export default function Experience() {
   const [ref, visible] = useScrollReveal()
@@ -38,12 +51,7 @@ export default function Experience() {
                   {/* Header row */}
                   <div className="exp-header">
                     <div className="exp-logo-wrap">
-                      <img
-                        src={job.logo}
-                        alt={`${job.company} logo`}
-                        className="exp-logo"
-                        onError={(e) => { e.currentTarget.style.display = 'none' }}
-                      />
+                      <ExperienceLogo company={job.company} src={job.logo} />
                     </div>
 
                     <div className="exp-title-block">
