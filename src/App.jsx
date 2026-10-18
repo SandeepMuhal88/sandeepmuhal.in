@@ -113,9 +113,9 @@ export default function App() {
           <Education />
           <Achievements />
           <Contact />
-          <Analytics />
         </main>
         <Footer onNav={scrollTo} />
+        <Analytics />
       </div>
     </ThemeProvider>
   )
